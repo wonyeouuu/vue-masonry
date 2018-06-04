@@ -1,35 +1,10 @@
 import Masonry from 'masonry-layout'
 import ImageLoaded from 'imagesloaded'
 
-const attributesMap = {
-  'column-width': 'columnWidth',
-  'transition-duration': 'transitionDuration',
-  'item-selector': 'itemSelector',
-  'origin-left': 'originLeft',
-  'origin-top': 'originTop',
-  'fit-width': 'fitWidth',
-  'stamp': 'stamp',
-  'gutter': 'gutter',
-  'percent-position': 'percentPosition',
-  'horizontal-order': 'horizontalOrder'
-}
 const EVENT_ADD = 'vuemasonry.itemAdded'
 const EVENT_REMOVE = 'vuemasonry.itemRemoved'
 const EVENT_IMAGE_LOADED = 'vuemasonry.imageLoaded'
 const EVENT_DESTROY = 'vuemasonry.destroy'
-
-const stringToBool = function (val) { return (val + '').toLowerCase() === 'true' }
-
-const collectOptions = function (attrs) {
-  var res = {}
-  var attributesArray = Array.prototype.slice.call(attrs)
-  attributesArray.forEach(function (attr) {
-    if (Object.keys(attributesMap).indexOf(attr.name) > -1) {
-      res[attributesMap[attr.name]] = (attr.name.indexOf('origin') > -1) ? stringToBool(attr.value) : attr.value
-    }
-  })
-  return res
-}
 
 export const VueMasonryPlugin = function () {}
 
@@ -43,7 +18,7 @@ VueMasonryPlugin.install = function (Vue, options) {
       if (!Masonry) {
         throw new Error('Masonry plugin is not defined. Please check it\'s connected and parsed correctly.')
       }
-      const masonry = new Masonry(el, collectOptions(el.attributes))
+      const masonry = new Masonry(el, nodeObj.value)
       const masonryDraw = function () {
         masonry.reloadItems()
         masonry.layout()

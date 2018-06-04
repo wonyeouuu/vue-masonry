@@ -1,3 +1,25 @@
+# Modification
+Access masonry-config from directive binding.
+
+usage:
+```javascript
+// .vue
+export default {
+  data () {
+    return {
+      config: {
+        itemSelector: '.item',
+        columnWidth: '.item',
+        gutter: 10, // you can specify integer in this case
+      },
+    }
+  },
+}
+
+// template
+<div v-masonry='config' />
+```
+
 # vue-masonry 
 
 **Current version: 0.11.1**
